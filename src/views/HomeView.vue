@@ -1,33 +1,36 @@
 <template>
   <div class="home">
-    <h2>Home</h2>
-    <p class="user-info">Name: {{ name }}, Age: {{ age }}</p>
-    <input type="text" v-model="name" />
-    <button @click="handleClick">Update User</button>
-    <button @click="age++">Increase Age</button>
+    <h1>Home</h1>
+    <h2>Refs</h2>
+    <p>{{ userOne.name }} - {{ userOne.age }} - {{ nameOne }}</p>
+    <button @click="updateUserOne">Update User</button>
+    <h2>Reactive</h2>
+    <p>{{ userTwo.name }} - {{ userTwo.age }} - {{ nameTwo }}</p>
+    <button @click="updateUserTwo">Update User</button>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 
 export default {
   name: "HomeView",
   setup() {
-    const name = ref("Lisa");
-    const age = ref(30);
+    const userOne = ref({ name: "lisa", age: 30 });
+    const userTwo = reactive({ name: "marie", age: 35 });
 
-    const handleClick = () => {
-      name.value = "Marie";
-      age.value = 35;
+    const nameOne = ref("lisa");
+    const nameTwo = reactive("marie");
+
+    const updateUserOne = () => {
+      userOne.value.age = 35;
     };
 
-    return { name, age, handleClick };
-  },
-  data() {
-    return {
-      score: 5,
+    const updateUserTwo = () => {
+      userTwo.age = 36;
     };
+
+    return { userOne, updateUserOne, userTwo, updateUserTwo, nameOne, nameTwo };
   },
 };
 </script>
